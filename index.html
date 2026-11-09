@@ -564,6 +564,21 @@ document.getElementById("pubs").innerHTML=PUBS.map(p=>`<li><span class="yr">${p.
  <div class="au">${p.au.map(a=>a===ME?`<b>${a}</b>`:a).join(", ")}</div>
  <div class="ve">${p.v}${p.n?`, ${p.n}`:""}${p.doi?` · <i>doi:${p.doi}</i>`:""}${p.tag?` · ${p.tag}`:""}</div></div>
  <span class="role ${p.role}">${ROLE[p.role]}</span></li>`).join("");
+
+/* ---- deep links: victorvigara.github.io/#padlens opens the page on that project card ---- */
+function goToCard(){
+  try{
+    const h=decodeURIComponent((location.hash||"").slice(1)).toLowerCase();
+    if(!h)return;
+    const c=[...document.querySelectorAll(".card[id]")].find(x=>x.id===h||x.id.startsWith(h));
+    if(!c)return;
+    if(c.hidden){fl.querySelector('[data-f="all"]').click()}
+    c.scrollIntoView({behavior:"auto",block:"start"});
+    c.classList.remove("flash");void c.offsetWidth;c.classList.add("flash");
+  }catch(e){}
+}
+window.addEventListener("hashchange",goToCard);
+(document.fonts&&document.fonts.ready||Promise.resolve()).then(()=>setTimeout(goToCard,150));
 </script>
 
 </body>

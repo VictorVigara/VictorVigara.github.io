@@ -577,8 +577,11 @@ function goToCard(){
     c.classList.remove("flash");void c.offsetWidth;c.classList.add("flash");
   }catch(e){}
 }
+try{if(location.hash&&"scrollRestoration" in history)history.scrollRestoration="manual"}catch(e){}
 window.addEventListener("hashchange",goToCard);
 (document.fonts&&document.fonts.ready||Promise.resolve()).then(()=>setTimeout(goToCard,150));
+window.addEventListener("load",()=>{goToCard();setTimeout(goToCard,600);setTimeout(goToCard,1500)});
+setTimeout(goToCard,50);
 </script>
 
 </body>
